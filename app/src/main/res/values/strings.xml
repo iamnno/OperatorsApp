@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Operators App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Логін</string>
+    <string name="password">Пароль</string>
+    <string name="sdsd">sdsd</string>
+    <string name="sign_in">Увійти</string>
+    <string name="user_type">Тип користувача</string>
+    <string name="operator_1">Оператор 1</string>
+    <string name="operator_2">Оператор 2</string>
+    <string name="administrator">Адміністратор</string>
+    <string name="alex_marshall">alex_marshall</string>
+    <string name="key_word">Ключове слово</string>
+    <string name="save_and_send">Зберегти і надіслати</string>
+    <string name="questionnaire_page_title">Анкета</string>
+    <string name="content_description_more">More</string>
+    <string name="more">More</string>
+    <string name="key_wod_was_successfuly_sent">Ключове слово було успішно надіслано!</string>
+    <string name="key_word_send_error">Не вдалося надіслати ключове слово!</string>
+    <string name="delete">Видалити</string>
+    <string name="msmccoy">msmccoy</string>
+    <string name="existed_users_accounts">Існуючі акаунти користувачів</string>
+    <string name="Create">Створити</string>
+    <string name="parameters">Параметри</string>
+    <string name="param1">Параметр 1</string>
+    <string name="param2">Параметр 2</string>
+    <string name="param3">Параметр 3</string>
+    <string name="exit">Вийти</string>
+    <string name="polygon_1">Polygon 1</string>
+    <string name="polygon_3">Polygon 3</string>
+    <string name="auth_title">Авторизація</string>
+    <string name="back">Повернутися</string>
+    <string name="profile">Профіль</string>
+</resources>

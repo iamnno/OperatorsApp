@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "95450539489",
+    "project_id": "books-explorer-a879c",
+    "storage_bucket": "books-explorer-a879c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95450539489:android:35f4a32dbc61210faf9ea0",
+        "android_client_info": {
+          "package_name": "com.nkt.operatorsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALMNmG9lDPlNn40V7T99TwitoeRjEwFjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,9 +4,11 @@ import com.nkt.operatorsapp.data.User
 
 interface AuthRepository {
 
-    suspend fun isUserSignedIn(): User?
+    fun isUserSignedIn(): Boolean
 
-    suspend fun signIn(username: String, password: String): String?
+    suspend fun getUserProfile(): User
+
+    suspend fun signIn(username: String, password: String): User
 
     suspend fun signOut()
 }

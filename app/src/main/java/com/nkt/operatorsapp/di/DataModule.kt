@@ -1,6 +1,6 @@
 package com.nkt.operatorsapp.di
 
-import com.nkt.operatorsapp.data.AuthRepositoryImpl
+import com.nkt.operatorsapp.data.NetworkAuthRepository
 import com.nkt.operatorsapp.data.RemoteParamsRepository
 import com.nkt.operatorsapp.data.repositories.QuestionnaireRepository
 import com.nkt.operatorsapp.data.RemoteQuestionnaireRepository
@@ -39,6 +39,6 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindsAuthRepository(
-        authRepository: AuthRepositoryImpl
+        authRepository: NetworkAuthRepository
     ): AuthRepository
 }

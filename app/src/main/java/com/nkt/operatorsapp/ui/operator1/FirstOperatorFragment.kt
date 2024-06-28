@@ -50,9 +50,11 @@ class FirstOperatorFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        (requireActivity() as MainActivity).binding.topAppBar.setTitle(R.string.operator_1)
+    override fun onResume() {
+        super.onResume()
+
+        (requireActivity() as MainActivity).setTopAppBarTitle(getString(R.string.operator_1))
+        (requireActivity() as MainActivity).setTopAppBar()
     }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
@@ -123,7 +125,10 @@ class FirstOperatorFragment : Fragment() {
 
             override fun messageArrived(topic: String, message: MqttMessage) {
                 // Логіка обробки отриманих повідомлень
-                Log.d("MQTT", "Отримано повідомлення з теми [$topic]: ${message.payload.toString(Charsets.UTF_8)}")
+                Log.d(
+                    "MQTT",
+                    "Отримано повідомлення з теми [$topic]: ${message.payload.toString(Charsets.UTF_8)}"
+                )
             }
 
             override fun deliveryComplete(token: IMqttDeliveryToken) {

@@ -24,7 +24,13 @@ class RemoteUsersRepository @Inject constructor(
                     val type = document.data["type"].toString()
                     val hash = document.data["hash"].toString()
 
-                    users.add(User(type = getType(type), username = username, hash = hash))
+                    users.add(
+                        User(
+                            type = getType(type),
+                            username = username,
+                            hash = hash
+                        )
+                    )
                 }
                 continuation.resume(users)
             }

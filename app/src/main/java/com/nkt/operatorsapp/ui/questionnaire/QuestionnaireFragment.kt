@@ -26,15 +26,13 @@ class QuestionnaireFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.sentState.collect {
-                    Snackbar.make(
-                        requireContext(),
-                        binding.root,
-                        getString(if (it) R.string.key_word_send_error else R.string.key_wod_was_successfuly_sent),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
+            viewModel.sentState.collect {
+                Snackbar.make(
+                    requireContext(),
+                    binding.root,
+                    getString(if (it) R.string.key_word_send_error else R.string.key_wod_was_successfuly_sent),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }

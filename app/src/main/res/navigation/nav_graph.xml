@@ -9,20 +9,7 @@
         android:id="@+id/authFragment"
         android:name="com.nkt.operatorsapp.ui.auth.AuthFragment"
         android:label="fragment_auth"
-        tools:layout="@layout/fragment_auth">
-        <action
-            android:id="@+id/action_authFragment_to_questionnaireFragment"
-            app:destination="@id/questionnaireFragment" />
-        <action
-            android:id="@+id/action_authFragment_to_usersFragment"
-            app:destination="@id/usersFragment" />
-        <action
-            android:id="@+id/action_authFragment_to_secondOperatorFragment"
-            app:destination="@id/secondOperatorFragment" />
-        <action
-            android:id="@+id/action_authFragment_to_firstOperatorFragment"
-            app:destination="@id/firstOperatorFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_auth" />
     <fragment
         android:id="@+id/questionnaireFragment"
         android:name="com.nkt.operatorsapp.ui.questionnaire.QuestionnaireFragment"
@@ -32,29 +19,17 @@
         android:id="@+id/firstOperatorFragment"
         android:name="com.nkt.operatorsapp.ui.operator1.FirstOperatorFragment"
         android:label="fragment_first_operator"
-        tools:layout="@layout/fragment_first_operator">
-        <action
-            android:id="@+id/action_firstOperatorFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_first_operator" />
     <fragment
         android:id="@+id/secondOperatorFragment"
         android:name="com.nkt.operatorsapp.ui.operator2.SecondOperatorFragment"
         android:label="fragment_second_operator"
-        tools:layout="@layout/fragment_second_operator">
-        <action
-            android:id="@+id/action_secondOperatorFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_second_operator" />
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.nkt.operatorsapp.ui.users.UsersFragment"
         android:label="fragment_users"
-        tools:layout="@layout/fragment_users">
-        <action
-            android:id="@+id/action_usersFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_users" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.nkt.operatorsapp.ui.profile.ProfileFragment"
@@ -68,9 +43,5 @@
             android:name="type"
             android:defaultValue="ADMINISTRATOR"
             app:argType="string" />
-        <action
-            android:id="@+id/action_profileFragment_to_authFragment"
-            app:destination="@id/authFragment"
-            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

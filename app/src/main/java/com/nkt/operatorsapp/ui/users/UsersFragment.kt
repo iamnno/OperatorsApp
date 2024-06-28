@@ -3,11 +3,9 @@ package com.nkt.operatorsapp.ui.users
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,14 +15,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nkt.operatorsapp.MainActivity
 import com.nkt.operatorsapp.R
-import com.nkt.operatorsapp.data.User
 import com.nkt.operatorsapp.data.UserType
 import com.nkt.operatorsapp.databinding.FragmentUsersBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
-private const val TAG = "UsersFragment"
 
 @AndroidEntryPoint
 class UsersFragment : Fragment() {
@@ -35,14 +29,15 @@ class UsersFragment : Fragment() {
 
     private val viewModel by viewModels<UsersViewModel>()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        (requireActivity() as MainActivity).binding.topAppBar.setTitle(R.string.administrator)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (requireActivity() as MainActivity).setTopAppBarTitle(getString(R.string.administrator))
+        (requireActivity() as MainActivity).setTopAppBar()
     }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector", "NotifyDataSetChanged")

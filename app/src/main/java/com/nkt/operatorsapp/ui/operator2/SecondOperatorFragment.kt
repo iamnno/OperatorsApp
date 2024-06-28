@@ -32,7 +32,13 @@ class SecondOperatorFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireActivity() as MainActivity).binding.topAppBar.setTitle(R.string.operator_2)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (requireActivity() as MainActivity).setTopAppBarTitle(getString(R.string.operator_2))
+        (requireActivity() as MainActivity).setTopAppBar()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

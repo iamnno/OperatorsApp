@@ -2,17 +2,19 @@ package com.nkt.operatorsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import com.nkt.operatorsapp.data.User
 import com.nkt.operatorsapp.data.UserType
 import com.nkt.operatorsapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 private const val TAG = "MainActivity"
@@ -26,77 +28,103 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    private val navController by lazy {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment.navController
+    }
 
+    fun setTopAppBarTitle(title: String) {
+        binding.topAppBar.title = title
+    }
 
+    fun setTopAppBarClickListener(listener: View.OnClickListener) {
+        binding.topAppBar.setOnClickListener(listener)
+    }
+
+    fun hideProfile() {
+        binding.topAppBar.navigationIcon = null
+    }
+
+    fun showProfile() {
+        binding.topAppBar.setNavigationIcon(R.drawable.ic_home_24)
+    }
+
+    private fun isUserSignedIn() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.isUserSignedIn.collect { state ->
-                    when (state) {
-                        MainUiState.Loading -> {
-                        }
+            viewModel.authState.collect {
+                when (it) {
+                    AuthUIState.Loading -> {
+                    }
 
-                        is MainUiState.Loaded -> {
-                            val navHostFragment =
-                                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                            val navController = navHostFragment.navController
-                            val bundle = bundleOf(
-                                "username" to state.user.username,
-                                "type" to state.user.type.name
-                            )
+                    AuthUIState.NotSignedIn -> {
+                        setupAuthScreen()
+                    }
 
-                            when (state.user.type) {
-                                UserType.OPERATOR_1 -> {
-//                                    navController.navigate(R.id.action_authFragment_to_firstOperatorFragment)
-                                    binding.topAppBar.setNavigationOnClickListener {
-                                        navController.navigate(
-                                            R.id.action_firstOperatorFragment_to_profileFragment,
-                                            bundle
-                                        )
-                                    }
-                                }
+                    is AuthUIState.SignedIn -> {
+                        openUserScreen(it.user)
+                    }
 
-                                UserType.OPERATOR_2 -> {
-//                                    navController.navigate(R.id.action_authFragment_to_secondOperatorFragment)
-                                    binding.topAppBar.setNavigationOnClickListener {
-                                        navController.navigate(
-                                            R.id.action_secondOperatorFragment_to_profileFragment,
-                                            bundle
-                                        )
-                                    }
-                                }
-
-                                UserType.ADMINISTRATOR -> {
-//                                    navController.navigate(R.id.action_authFragment_to_usersFragment)
-                                    binding.topAppBar.setNavigationOnClickListener {
-                                        navController.navigate(
-                                            R.id.action_usersFragment_to_profileFragment,
-                                            bundle
-                                        )
-                                    }
-                                }
-                            }
-
-                        }
-
-                        MainUiState.NotSignedIn -> {
-                            val navHostFragment =
-                                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                            val navController = navHostFragment.navController
-
-                            binding.topAppBar.setNavigationOnClickListener {
-                                navController.navigate(R.id.action_authFragment_to_questionnaireFragment)
-                            }
-
-                        }
+                    AuthUIState.Empty -> {}
+                    is AuthUIState.Failure -> {
+                        Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
-
     }
 
+    fun openUserScreen(user: User) {
+        when (user.type) {
+            UserType.OPERATOR_1 -> openFirstOperatorScreen()
+            UserType.OPERATOR_2 -> openSecondOperatorScreen()
+            UserType.ADMINISTRATOR -> openAdminScreen()
+        }
+    }
 
+    fun setupAuthScreen() {
+        navController.clearBackStack(R.id.authFragment)
+
+        binding.topAppBar.setNavigationOnClickListener {
+            navController.navigate(R.id.questionnaireFragment)
+        }
+    }
+
+    private fun openFirstOperatorScreen() {
+        setTopAppBar()
+
+        navController.navigate(R.id.firstOperatorFragment)
+    }
+
+    private fun openSecondOperatorScreen() {
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.authFragment, true)
+            .build()
+
+        setTopAppBar()
+
+        navController.navigate(R.id.secondOperatorFragment, null, navOptions)
+    }
+
+    private fun openAdminScreen() {
+        setTopAppBar()
+
+        navController.navigate(R.id.usersFragment)
+    }
+
+    fun setTopAppBar() {
+        binding.topAppBar.setNavigationOnClickListener {
+            navController.navigate(
+                R.id.profileFragment,
+            )
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        isUserSignedIn()
+    }
 }
